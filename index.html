@@ -1,168 +1,138 @@
 <!DOCTYPE html>
-<html lang="sr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Online Meni</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Café Menu Navigation</title>
   <style>
-    .main-heading {
-  font-family: 'Poppins', sans-serif;       /* Modern clean font */
-  font-size: 48px;                          /* Large & prominent */
-  font-weight: 700;                         /* Bold look */
-  color: #542e1a;                           /* Deep coffee color (warm tone) */
-  text-align: center;                       /* Centered text */
-  text-transform: uppercase;                /* ALL CAPS effect */
-  letter-spacing: 3px;                      /* Stylish spacing between letters */
-  margin-top: 40px;
-  margin-bottom: 100px;
-  background: linear-gradient(to right, #d8a36e, #f2d2b0); /* subtle goldish gradient */
-  padding: 20px 40px;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);   /* Soft shadow for depth */
-}
-    
+    /* Reset default spacing */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    
+    /* Dark full-screen background and center content */
     body {
-      font-family: Arial, sans-serif;
-      background-color: #fff8f2 ;
-      color: #333;
+      background-color: #121212; /* Dark background */
+      font-family:'Lato',sans-serif;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 20px;
-      line-height: 1.6;
     }
-    h2 {
-      
-  font-family: 'Poppins', sans-serif;       /* Modern clean font */
-  font-size: 20px;                          /* Large & prominent */
-  font-weight: 700;                         /* Bold look */
-  color: #542e1a;                           /* Deep coffee color (warm tone) */
-  text-align: center;                       /* Centered text */
-  text-transform: uppercase;                /* ALL CAPS effect */
-  letter-spacing: 3px;                      /* Stylish spacing between letters */
-  margin-top: 100px;
-  margin-bottom: 15px;
-  background: linear-gradient(to right, #d8a36e, #f2d2b0); /* subtle goldish gradient */
-  padding: 20px 40px;
-  border-radius: 15px;
-  box-shadow: 55 3px 12px rgba(0,0,0,0.15);   /* Soft shadow for depth */
 
+    /* Wide container for the navigation */
+    .container {
+      background-color: #333333;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 1200px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
     }
-    .section {
-      margin-bottom: 30px;
+
+    /* Heading styling */
+    .container h1 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      margin-bottom: 40px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
-    .item {
-  font-family: 'Lato', sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  border: 1px solid black;
-  color: #333;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 20px;
-  margin-bottom: 10px;
-  background-color: #fff;                    /* Clean background */
-  border-radius: 12px;                       /* Rounded corners */
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08); /* Soft shadow for depth */
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    /* Navigation styling: vertical stack */
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
-    .price {
+
+    /* Navigation card style */
+    .nav-item {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      background-color: #f0f0f0;  /* Light grey background for the card */
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 15px 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      color: #121234;  /* Dark text for contrast */
+    }
+    
+    .nav-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    /* Image styling: circular image with extra space */
+    .nav-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-right: 25px;
+      border: 2px solid #fff;
+    }
+
+    /* Option text styling: centered and bold */
+    .nav-item span {
+      font-family:'Lato',sans-serif;
+      flex: 1;
+      font-size: 2.2rem;
       font-weight: bold;
+      text-align: center;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .container h1 {
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+      }
+      .nav-item {
+        padding: 12px 16px;
+      }
+      .nav-item img {
+        width: 60px;
+        height: 60px;
+        margin-right: 15px;
+      }
+      .nav-item span {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1 class = "main-heading">Online Meni</h1>
-
-  <div class="section">
-    <h2>Čajevi i Topli napici</h2>
-    <div class="item"><span>Čaj sa limunom i medom</span><span class="price">225 RSD</span></div>
-    <div class="item"><span>Topla čokolada</span><span class="price">325 RSD</span></div>
-    <div class="item"><span>Plazma šejk</span><span class="price">395 RSD</span></div>
-    <div class="item"><span>Kroasan</span><span class="price">-</span></div>
+  <div class="container">
+    <h1>Online meni</h1>
+    <nav>
+      <a class="nav-item" href="kafa.html">
+        <img src="kafe.jpg" alt="Kafa">
+        <span>Kafa</span>
+      </a>
+      <a class="nav-item" href="alkohol.html">
+        <img src="Piva.jpg" alt="Alkohol">
+        <span>Alkohol</span>
+      </a>
+      <a class="nav-item" href="bez-alkohol.html">
+        <img src="sok.kpg.jpg" alt="Bez-Alkohol">
+        <span>Bez-Alkohol</span>
+      </a>
+      <a class="nav-item" href="piva.html">
+        <img src="Alkohol.jpg" alt="Piva">
+        <span>Piva</span>
+      </a>
+    </nav>
   </div>
-
-  <div class="section">
-    <h2>Vode</h2>
-    <div class="item"><span>Knjaz Miloš 0.33</span><span class="price">240 RSD</span></div>
-    <div class="item"><span>Rosa 0.33</span><span class="price">210 RSD</span></div>
-    <div class="item"><span>Rosa 0.75</span><span class="price">-</span></div>
-  </div>
-
-  <div class="section">
-    <h2>Sokovi</h2>
-    <div class="item"><span>Cedjena Pomorandža</span><span class="price">340 RSD</span></div>
-    <div class="item"><span>Cedjenji Mix</span><span class="price">380 RSD</span></div>
-    <div class="item"><span>Limunada</span><span class="price">285 RSD</span></div>
-    <div class="item"><span>Limunada sa ukusom</span><span class="price">295 RSD</span></div>
-    <div class="item"><span>Orangina</span><span class="price">285 RSD</span></div>
-    <div class="item"><span>Coca Cola</span><span class="price">260 RSD</span></div>
-    <div class="item"><span>Coca Cola Zero</span><span class="price">260 RSD</span></div>
-    <div class="item"><span>Fanta</span><span class="price">260 RSD</span></div>
-    <div class="item"><span>Schweppes T.Water</span><span class="price">260 RSD</span></div>
-    <div class="item"><span>Schweppes B.Lemon</span><span class="price">260 RSD</span></div>
-    <div class="item"><span>Negazirani sokovi</span><span class="price">260 RSD</span></div>
-    <div class="item"><span>Ultra Energy</span><span class="price">-</span></div>
-  </div>
-
-  <div class="section">
-    <h2>Piva</h2>
-    <div class="item"><span>Heineken točeno 0.5</span><span class="price">-</span></div>
-    <div class="item"><span>Heineken 0.25</span><span class="price">365 RSD</span></div>
-    <div class="item"><span>Birra Moretti 0.4</span><span class="price">275</span></div>
-    <div class="item"><span>Zaječarsko 0.33</span><span class="price">-</span></div>
-  </div>
-
-  <div class="section">
-    <h2>Kafa</h2>
-    <div class="item"><span>Espresso</span><span class="price">210 RSD</span></div>
-    <div class="item"><span>Ice Espresso</span><span class="price">220 RSD</span></div>
-    <div class="item"><span>Americano</span><span class="price">210 RSD</span></div>
-    <div class="item"><span>Dupli Espresso</span><span class="price">315 RSD</span></div>
-    <div class="item"><span>Macchiato</span><span class="price">210 RSD</span></div>
-    <div class="item"><span>Espresso sa mlekom</span><span class="price">220 RSD</span></div>
-    <div class="item"><span>Cappuccino</span><span class="price">230 RSD</span></div>
-    <div class="item"><span>Cappuccino sa šlagom</span><span class="price">240 RSD</span></div>
-    <div class="item"><span>Latte Macchiato</span><span class="price">275 RSD</span></div>
-    <div class="item"><span>Café Latte</span><span class="price">275 RSD</span></div>
-    <div class="item"><span>Ice Latte</span><span class="price">275 RSD</span></div>
-    <div class="item"><span>Café Latte sa ukusom</span><span class="price">325 RSD</span></div>
-    <div class="item"><span>Ice Latte sa ukusom</span><span class="price">325 RSD</span></div>
-    <div class="item"><span>Caffe Mocha</span><span class="price">345 RSD</span></div>
-    <div class="item"><span>Nes Café</span><span class="price">265 RSD</span></div>
-    <div class="item"><span>Nes Café sa šlagom</span><span class="price">295 RSD</span></div>
-    <div class="item"><span>Nes Café sa ukusom</span><span class="price">325 RSD</span></div>
-    <div class="item"><span>Domaća kafa</span><span class="price">175 RSD</span></div>
-  </div>
-
-  <div class="section">
-    <h2>Vina</h2>
-    <div class="item"><span>Vino čaša</span><span class="price">345 RSD</span></div>
-    <div class="item"><span>Prosecco</span><span class="price">380 RSD</span></div>
-    <div class="item"><span>Kuvano vino</span><span class="price">300 RSD</span></div>
-    <div class="item"><span>Somersby</span><span class="price">330 RSD</span></div>
-  </div>
-
-  <div class="section">
-    <h2>Alkoholna pića</h2>
-    <div class="item"><span>Gorki list 0.05</span><span class="price">245 RSD</span></div>
-    <div class="item"><span>Jägermeister 0.03</span><span class="price">345 RSD</span></div>
-    <div class="item"><span>Amaro Montenegro 0.03</span><span class="price">345 RSD</span></div>
-    <div class="item"><span>Vodka 0.03</span><span class="price">345 RSD</span></div>
-    <div class="item"><span>Gin 0.03</span><span class="price">345 RSD</span></div>
-    <div class="item"><span>Vermouth 0.03</span><span class="price">345 RSD</span></div>
-    <div class="item"><span>Tequila 0.03</span><span class="price">345 RSD</span></div>
-    <div class="item"><span>Martini 0.03</span><span class="price">345 RSD</span></div>
-    <div class="item"><span>Campari 0.03</span><span class="price">345 RSD</span></div>
-    <div class="item"><span>Baileys 0.05</span><span class="price">370 RSD</span></div>
-    <div class="item"><span>Jameson 0.03</span><span class="price">375 RSD</span></div>
-    <div class="item"><span>Chivas Regal 0.03</span><span class="price">-</span></div>
-    <div class="item"><span>Ballantine's 0.03</span><span class="price">375 RSD</span></div>
-    <div class="item"><span>Johnnie Walker 0.03</span><span class="price">375 RSD</span></div>
-    <div class="item"><span>Rakija Akov</span><span class="price">-RSD</span></div>
-    <div class="item"><span>Rakija</span><span class="price">245 RSD</span></div>
-  </div>
-
 </body>
 </html>
 
