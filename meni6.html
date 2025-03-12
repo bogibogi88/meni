@@ -7,10 +7,10 @@
   <style>
     :root {
       --bg-color: #121212;           /* Deep dark background */
-      --container-bg: #1f1f1f;       /* Slightly lighter container background */
-      --accent-color: #cda45e;       /* Warm, sophisticated gold accent */
-      --text-color: #e0e0e0;         /* Light grey text */
-      --border-color: #444;          /* Subtle border */
+      --container-bg: #1f1f1f;         /* Slightly lighter container background */
+      --accent-color: #cda45e;         /* Warm, sophisticated gold accent */
+      --text-color: #e0e0e0;           /* Light grey text */
+      --border-color: #444;            /* Subtle border */
     }
     
     /* Reset */
@@ -70,12 +70,12 @@
       padding: 20px;
     }
     
-    /* Each menu item */
+    /* Each menu item styled as a row (table-like) */
     .menu-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 16px;
+      padding: 10px 12px;
       border-bottom: 1px solid var(--border-color);
       transition: background 0.3s ease;
     }
@@ -87,12 +87,18 @@
     }
     
     .item-name {
-      font-size: 1.8rem;
+      font-size: 1.4rem;      /* Reduced font size */
       font-weight: 900;
       text-transform: uppercase;
     }
+    .item-quantity {
+      font-size: 1.4rem;      /* Reduced font size for quantity, if needed */
+      font-weight: 900;
+      text-transform: uppercase;
+      margin: 0 10px;
+    }
     .item-price {
-      font-size: 1.8rem;
+      font-size: 1.4rem;      /* Reduced font size */
       font-weight: 900;
       text-transform: uppercase;
     }
@@ -108,10 +114,10 @@
         left: 10px;
       }
       .menu-item {
-        padding: 10px 12px;
+        padding: 8px 10px;
       }
-      .item-name, .item-price {
-        font-size: 1.6rem;
+      .item-name, .item-quantity, .item-price {
+        font-size: 1.2rem;
       }
     }
   </style>
@@ -125,70 +131,71 @@
     <div class="menu-items">
       <div class="menu-item">
         <span class="item-name">Gorki list 0.05</span>
-        <span class="item-price">245 RSD</span>
+        <span class="item-price">245</span>
       </div>
       <div class="menu-item">
         <span class="item-name">Jägermeister 0.03</span>
-        <span class="item-price">345 RSD</span>
+        <span class="item-price">345</span>
       </div>
       <div class="menu-item">
         <span class="item-name">Amaro Montenegro 0.03</span>
-        <span class="item-price">345 RSD</span>
+        <span class="item-price">345</span>
       </div>
       <div class="menu-item">
         <span class="item-name">Vodka 0.03</span>
-        <span class="item-price">345 RSD</span>
+        <span class="item-price">345</span>
       </div>
       <div class="menu-item">
         <span class="item-name">Gin 0.03</span>
-        <span class="item-price">345 RSD</span>
+        <span class="item-price">345</span>
       </div>
       <div class="menu-item">
         <span class="item-name">Vermouth 0.03</span>
-        <span class="item-price">345 RSD</span>
+        <span class="item-price">345</span>
       </div>
       <div class="menu-item">
         <span class="item-name">Tequila 0.03</span>
-        <span class="item-price">345 RSD</span>
+        <span class="item-price">345</span>
       </div>
       <div class="menu-item">
         <span class="item-name">Martini 0.03</span>
-        <span class="item-price">345 RSD</span>
+        <span class="item-price">345</span>
       </div>
       <div class="menu-item">
         <span class="item-name">Campari 0.03</span>
-        <span class="item-price">345 RSD</span>
+        <span class="item-price">345</span>
       </div>
       <div class="menu-item">
         <span class="item-name">Baileys 0.05</span>
-        <span class="item-price">370 RSD</span>
+        <span class="item-price">370</span>
       </div>
       <div class="menu-item">
         <span class="item-name">Jameson 0.03</span>
-        <span class="item-price">375 RSD</span>
+        <span class="item-price">375</span>
       </div>
       <div class="menu-item">
         <span class="item-name">Chivas Regal 0.03</span>
-        <span class="item-price">375 RSD</span>
+        <span class="item-price">375</span>
       </div>
       <div class="menu-item">
         <span class="item-name">Ballantine's 0.03</span>
-        <span class="item-price">375 RSD</span>
+        <span class="item-price">375</span>
       </div>
       <div class="menu-item">
         <span class="item-name">Johnnie Walker 0.03</span>
-        <span class="item-price">375 RSD</span>
+        <span class="item-price">375</span>
       </div>
       <div class="menu-item">
         <span class="item-name">Rakija Akov</span>
-        <span class="item-price">- RSD</span>
+        <span class="item-price">-</span>
       </div>
       <div class="menu-item">
         <span class="item-name">Rakija</span>
-        <span class="item-price">245 RSD</span>
+        <span class="item-price">245</span>
       </div>
     </div>
   </div>
 </body>
 </html>
+
 
