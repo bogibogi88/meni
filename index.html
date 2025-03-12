@@ -5,88 +5,96 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Café Menu Navigation</title>
   <style>
-    /* Reset default spacing */
+    :root {
+      --accent: #b5651d;     /* Warm coffee brown */
+      --bg: #121212;         /* Dark background */
+      --container-bg: #333333;
+      --text-light: #fff;
+    }
+    /* Reset styles */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    /* Dark full-screen background and center content */
+    /* Body: full-screen dark background, centered content */
     body {
-      background-color: #121212; /* Dark background */
+      background-color: var(--bg);
       font-family: 'Lato', sans-serif;
-      color: #fff;
+      color: var(--text-light);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 20px;
     }
-    /* Smaller container for the navigation */
+    /* Main container */
     .container {
-      background-color: #333333;
+      background-color: var(--container-bg);
       border-radius: 10px;
       width: 90%;
-      max-width: 600px; /* reduced width */
-      padding: 20px;    /* reduced padding */
+      max-width: 800px;
+      padding: 20px;
       text-align: center;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
     }
-    /* Heading styling */
-    .container h1 {
-      font-size: 2.5rem; /* smaller heading */
-      font-weight: 900;
+    /* Heading box with border around h1 */
+    .heading-box {
+      border: 2px solid var(--accent);
+      padding: 20px;
       margin-bottom: 20px;
+      border-radius: 8px;
+    }
+    .heading-box h1 {
+      font-size: 2.8rem;
+      font-weight: 900;
       letter-spacing: 2px;
       text-transform: uppercase;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      color: var(--accent);
     }
-    /* Navigation styling: vertical stack */
+    /* Navigation: vertical stack */
     nav {
       display: flex;
       flex-direction: column;
       gap: 15px;
     }
-    /* Navigation card style */
+    /* Each navigation item styled as a thinner card */
     .nav-item {
       display: flex;
       align-items: center;
       text-decoration: none;
-      background-color: #f0f0f0;  /* Light grey background for the card */
-      border: 1px solid #ccc;
+      background-color: var(--accent);
       border-radius: 8px;
-      padding: 10px 15px;  /* reduced padding */
+      padding: 10px 15px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      color: #121234;  /* Dark text for contrast */
+      color: var(--text-light);
     }
     .nav-item:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.4);
     }
-    /* Image styling: circular image with reduced size */
+    /* Circular image styling */
     .nav-item img {
-      width: 60px;   /* reduced image size */
+      width: 60px;
       height: 60px;
       object-fit: cover;
       border-radius: 50%;
-      margin-right: 15px;  /* reduced margin */
-      border: 2px solid #fff;
+      margin-right: 15px;
+      border: 2px solid var(--text-light);
     }
-    /* Option text styling: centered and bold */
+    /* Option text styling: centered and extra bold */
     .nav-item span {
-      font-family: 'Lato', sans-serif;
       flex: 1;
       font-size: 1.8rem;
-      font-weight: bold;
+      font-weight: 900;
       text-align: center;
-      letter-spacing: 3px; /* reduced letter spacing */
+      letter-spacing: 1px;
       text-transform: uppercase;
     }
     /* Responsive adjustments */
-    @media (max-width: 600px) {
-      .container h1 {
-        font-size: 2rem;
-        margin-bottom: 15px;
+    @media (max-width: 480px) {
+      .heading-box h1 {
+        font-size: 2.2rem;
       }
       .nav-item {
         padding: 8px 12px;
@@ -104,7 +112,9 @@
 </head>
 <body>
   <div class="container">
-    <h1>Online meni</h1>
+    <div class="heading-box">
+      <h1>MENI</h1>
+    </div>
     <nav>
       <a class="nav-item" href="kafa.html">
         <img src="slike/kafe.jpg" alt="Kafa">
@@ -126,3 +136,5 @@
   </div>
 </body>
 </html>
+
+ 
