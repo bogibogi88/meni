@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alkoholna Pića Menu</title>
+  <style>
+    :root {
+      --bg-color: #121212;           /* Deep dark background */
+      --container-bg: #1f1f1f;       /* Slightly lighter container background */
+      --accent-color: #cda45e;       /* Warm, sophisticated gold accent */
+      --text-color: #e0e0e0;         /* Light grey text */
+      --border-color: #444;          /* Subtle border */
+    }
+    
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    /* Body styling */
+    body {
+      background-color: var(--bg-color);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: var(--text-color);
+      padding: 20px;
+      min-height: 100vh;
+    }
+    
+    /* Main container */
+    .menu-section {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: var(--container-bg);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+    }
+    
+    /* Header with a big picture */
+    .menu-header {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      overflow: hidden;
+    }
+    .menu-header img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+    }
+    .menu-header h2 {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      font-size: 2.8rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent-color);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+      margin: 0;
+    }
+    
+    /* Menu items container */
+    .menu-items {
+      padding: 20px;
+    }
+    
+    /* Each menu item */
+    .menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-color);
+      transition: background 0.3s ease;
+    }
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+    .menu-item:hover {
+      background-color: rgba(205, 164, 94, 0.15);
+    }
+    
+    .item-name {
+      font-size: 1.8rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+    .item-price {
+      font-size: 1.8rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .menu-header {
+        height: 180px;
+      }
+      .menu-header h2 {
+        font-size: 2rem;
+        bottom: 10px;
+        left: 10px;
+      }
+      .menu-item {
+        padding: 10px 12px;
+      }
+      .item-name, .item-price {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="menu-section">
+    <div class="menu-header">
+      <img src="alc.jpg" alt="Alkoholna pića">
+      <h2>Alkoholna pića</h2>
+    </div>
+    <div class="menu-items">
+      <div class="menu-item">
+        <span class="item-name">Gorki list 0.05</span>
+        <span class="item-price">245 RSD</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Jägermeister 0.03</span>
+        <span class="item-price">345 RSD</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Amaro Montenegro 0.03</span>
+        <span class="item-price">345 RSD</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Vodka 0.03</span>
+        <span class="item-price">345 RSD</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Gin 0.03</span>
+        <span class="item-price">345 RSD</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Vermouth 0.03</span>
+        <span class="item-price">345 RSD</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Tequila 0.03</span>
+        <span class="item-price">345 RSD</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Martini 0.03</span>
+        <span class="item-price">345 RSD</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Campari 0.03</span>
+        <span class="item-price">345 RSD</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Baileys 0.05</span>
+        <span class="item-price">370 RSD</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Jameson 0.03</span>
+        <span class="item-price">375 RSD</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Chivas Regal 0.03</span>
+        <span class="item-price">375 RSD</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Ballantine's 0.03</span>
+        <span class="item-price">375 RSD</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Johnnie Walker 0.03</span>
+        <span class="item-price">375 RSD</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Rakija Akov</span>
+        <span class="item-price">- RSD</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Rakija</span>
+        <span class="item-price">245 RSD</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
