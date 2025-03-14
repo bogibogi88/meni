@@ -161,7 +161,7 @@
       background-color: rgba(205, 164, 94, 0.8);
     }
     
-    /* Responsive adjustments */
+    /* Responsive adjustments for mobile */
     @media (max-width: 600px) {
       .menu-header {
         height: 180px;
@@ -172,8 +172,17 @@
         left: 10px;
       }
       .menu-item {
+        flex-direction: column;
+        align-items: flex-start;
         padding: 8px 10px;
         font-size: 1.2rem;
+      }
+      .quantity-controls {
+        position: static;
+        margin-top: 10px;
+        transform: none;
+        width: 100%;
+        justify-content: flex-start;
       }
       .qty-btn, .qty-display, .action-btn {
         font-size: 1.2rem;
@@ -364,7 +373,6 @@
       }
       
       // Open a new window for the order summary.
-      // Adjust width, height, left, and top values as desired.
       let orderWindow = window.open("", "Order Summary", "width=600,height=800,left=200,top=100");
       orderWindow.document.write(`<!DOCTYPE html>
 <html lang="en">
@@ -433,6 +441,3 @@
   </script>
 </body>
 </html>
-
-
-
