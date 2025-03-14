@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Alkoholna Pića Menu</title>
   <style>
     :root {
-      --bg-color: #121212;           
-      --container-bg: #1f1f1f;       
-      --accent-color: #cda45e;       
-      --text-color: #e0e0e0;         
-      --border-color: #444;          
+      --bg-color: #121212;           /* Deep dark background */
+      --container-bg: #1f1f1f;       /* Slightly lighter container background */
+      --accent-color: #cda45e;       /* Warm, sophisticated gold accent */
+      --text-color: #e0e0e0;         /* Light grey text */
+      --border-color: #444;          /* Subtle border */
     }
     
     /* Reset */
@@ -263,20 +263,20 @@
     let activeItem = null;
 
     function selectItem(item) {
+      // If another item is active, finalize it first
       if (activeItem && activeItem !== item) {
         finalizeItem(activeItem);
       }
       activeItem = item;
       item.classList.add('active');
       
+      // Blur all other items
       document.querySelectorAll('.menu-item').forEach(el => {
-        if (el !== item) {
-          el.classList.add('blur');
-        } else {
-          el.classList.remove('blur');
-        }
+        if (el !== item) el.classList.add('blur');
+        else el.classList.remove('blur');
       });
       
+      // Add plus/minus/done controls if not present
       if (!item.querySelector('.quantity-controls')) {
         addControls(item);
       }
@@ -325,6 +325,7 @@
       item.classList.remove('active');
       removeControls(item);
       activeItem = null;
+      // Unblur all items
       document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('blur'));
     }
 
@@ -341,7 +342,8 @@
       if (display) display.textContent = qty;
     }
 
-    function viewOrder() {
+    // Gather all ordered items
+    function gatherOrders() {
       let orders = [];
       document.querySelectorAll('.menu-item').forEach(item => {
         let qty = parseInt(item.dataset.quantity);
@@ -352,16 +354,25 @@
           });
         }
       });
+      return orders;
+    }
+
+    // Open the order summary in a new tab (mobile-friendly approach)
+    function viewOrder() {
+      let orders = gatherOrders();
       if (orders.length === 0) {
         alert("Please select at least one item.");
         return;
       }
-      
-      let orderWindow = window.open("", "Order Summary", "width=600,height=800,left=200,top=100");
+
+      // Open a new tab without forcing dimensions
+      let orderWindow = window.open("", "_blank");
+
       orderWindow.document.write(`<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Order Summary</title>
   <style>
     body {
@@ -409,15 +420,20 @@
 <body>
   <h2>Order Summary</h2>
   <div id="order-list">`);
-      
+
       orders.forEach(order => {
-        orderWindow.document.write(`<div class="order-item">${order.name} - Quantity: ${order.quantity}</div>`);
+        orderWindow.document.write(`
+          <div class="order-item">
+            ${order.name} - Quantity: ${order.quantity}
+          </div>
+        `);
       });
-      
-      orderWindow.document.write(`</div>
-  <button class="action-btn" onclick="alert('Order submitted!')">Submit Order</button>
-  <br>
-  <button class="back-btn" onclick="window.close()">Back</button>
+
+      orderWindow.document.write(`
+    </div>
+    <button class="action-btn" onclick="alert('Order submitted!')">Submit Order</button>
+    <br />
+    <button class="back-btn" onclick="window.close()">Back</button>
 </body>
 </html>`);
       orderWindow.document.close();
@@ -425,3 +441,4 @@
   </script>
 </body>
 </html>
+
