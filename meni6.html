@@ -6,20 +6,20 @@
   <title>Alkoholna Pića Menu</title>
   <style>
     :root {
-      --bg-color: #121212;           
-      --container-bg: #1f1f1f;       
-      --accent-color: #cda45e;       
-      --text-color: #e0e0e0;         
-      --border-color: #444;          
+      --bg-color: #121212;
+      --container-bg: #1f1f1f;
+      --accent-color: #cda45e;
+      --text-color: #e0e0e0;
+      --border-color: #444;
     }
-    
+
     /* Reset */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     /* Body styling */
     body {
       background-color: var(--bg-color);
@@ -27,10 +27,8 @@
       color: var(--text-color);
       padding: 20px;
       min-height: 100vh;
-      /* No wrapping site-wide (be cautious on very narrow screens) */
-      white-space: nowrap; 
     }
-    
+
     /* Main container */
     .menu-section {
       max-width: 800px;
@@ -40,8 +38,8 @@
       overflow: hidden;
       box-shadow: 0 8px 20px rgba(0,0,0,0.7);
     }
-    
-    /* Header with big picture */
+
+    /* Header with a big picture */
     .menu-header {
       position: relative;
       width: 100%;
@@ -66,12 +64,12 @@
       text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
       margin: 0;
     }
-    
+
     /* Menu items container */
     .menu-items {
       padding: 20px;
     }
-    
+
     /* Each menu item */
     .menu-item {
       display: flex;
@@ -81,13 +79,11 @@
       border-bottom: 1px solid var(--border-color);
       transition: background 0.3s ease;
       cursor: pointer;
-      position: relative;
       font-size: 1.4rem;
       font-weight: 900;
       text-transform: uppercase;
       user-select: none;
-      /* No wrapping for each row */
-      white-space: nowrap;
+      word-wrap: break-word;
     }
     .menu-item:last-child {
       border-bottom: none;
@@ -106,7 +102,7 @@
       filter: none;
       opacity: 1;
     }
-    
+
     /* Price display on main page */
     .item-price {
       font-size: 1.4rem;
@@ -114,17 +110,13 @@
       text-transform: uppercase;
       margin-left: 10px;
     }
-    
-    /* Quantity controls for active item */
+
+    /* Quantity controls (no absolute positioning => no overlap) */
     .quantity-controls {
       display: flex;
       align-items: center;
       gap: 10px;
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      flex-wrap: nowrap;
+      margin-left: 20px; /* so they appear to the right, but no overlap */
     }
     .qty-btn {
       background-color: var(--accent-color);
@@ -146,7 +138,7 @@
       min-width: 20px;
       text-align: center;
     }
-    
+
     /* Action buttons at the bottom */
     .action-buttons {
       display: flex;
@@ -171,10 +163,8 @@
     .action-btn:hover {
       background-color: rgba(205, 164, 94, 0.8);
     }
-    
-    /* Responsive note:
-       Because we've forced white-space: nowrap, on extremely narrow screens
-       the user may need to scroll horizontally. */
+
+    /* Responsive adjustments for mobile */
     @media (max-width: 600px) {
       .menu-header {
         height: 180px;
@@ -185,7 +175,13 @@
         left: 10px;
       }
       .menu-item {
+        flex-direction: column;
+        align-items: flex-start;
         font-size: 1.2rem;
+      }
+      .quantity-controls {
+        margin-left: 0;
+        margin-top: 5px;
       }
       .qty-btn, .qty-display, .action-btn {
         font-size: 1.2rem;
@@ -203,7 +199,7 @@
       <h2>Alkoholna Pića</h2>
     </div>
     <div class="menu-items">
-      <!-- Each menu-item includes data-quantity=0 by default, data-price, etc. -->
+      <!-- All drinks. data-quantity=0 by default, data-price, etc. -->
       <div class="menu-item" data-quantity="0" data-price="245" onclick="selectItem(this)">
         <span class="item-name">Gorki list 0.05</span>
         <span class="item-price">245</span>
@@ -273,25 +269,30 @@
       <button class="action-btn" onclick="viewOrder()">View Order</button>
     </div>
   </div>
-  
+
   <script>
     let activeItem = null;
 
+    // Called when user clicks an item
     function selectItem(item) {
+      // If another item is active, finalize it first
       if (activeItem && activeItem !== item) {
         finalizeItem(activeItem);
       }
       activeItem = item;
       item.classList.add('active');
+      // Blur all other items
       document.querySelectorAll('.menu-item').forEach(el => {
         if (el !== item) el.classList.add('blur');
         else el.classList.remove('blur');
       });
+      // Add quantity controls if not present
       if (!item.querySelector('.quantity-controls')) {
         addControls(item);
       }
     }
-    
+
+    // Adds the plus/minus/done controls
     function addControls(item) {
       const controlsDiv = document.createElement('div');
       controlsDiv.className = 'quantity-controls';
@@ -330,19 +331,23 @@
       controlsDiv.appendChild(doneBtn);
       item.appendChild(controlsDiv);
     }
-    
+
+    // Called when user clicks DONE or when they select another item
     function finalizeItem(item) {
       item.classList.remove('active');
       removeControls(item);
       activeItem = null;
+      // Unblur all items
       document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('blur'));
     }
-    
+
+    // Removes the quantity controls from a given item
     function removeControls(item) {
       const controls = item.querySelector('.quantity-controls');
       if (controls) controls.remove();
     }
-    
+
+    // Increase or decrease the item’s quantity
     function updateQuantity(item, delta) {
       let qty = parseInt(item.dataset.quantity);
       qty = Math.max(0, qty + delta);
@@ -350,7 +355,8 @@
       const display = item.querySelector('.qty-display');
       if (display) display.textContent = qty;
     }
-    
+
+    // Collects all items with quantity > 0
     function gatherOrders() {
       let orders = [];
       document.querySelectorAll('.menu-item').forEach(item => {
@@ -366,7 +372,8 @@
       });
       return orders;
     }
-    
+
+    // Opens the order summary page
     function viewOrder() {
       let orders = gatherOrders();
       if (orders.length === 0) {
@@ -387,23 +394,22 @@
       color: #e0e0e0;
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       padding: 20px;
-      text-align: center;
-      /* Also no wrapping on second page to keep everything on one line */
-      white-space: nowrap;
+      /* Align items to the left, no overlap */
+      text-align: left;
     }
     h2 {
+      text-align: center;
       font-size: 2.8rem;
       font-weight: 900;
       text-transform: uppercase;
       margin-bottom: 20px;
-      color: #cda45e; /* Better styling for the header */
+      color: #cda45e;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
     }
     .order-container {
       width: 90%;
       max-width: 500px;
       margin: 0 auto;
-      text-align: left;
     }
     .order-row {
       display: flex;
@@ -415,7 +421,6 @@
       font-weight: 900;
       font-size: 1.4rem;
       margin-bottom: 5px;
-      white-space: nowrap; /* No wrapping for each order row */
     }
     .remove-btn {
       background-color: transparent;
@@ -428,6 +433,8 @@
     }
     .order-details {
       flex-grow: 1;
+      /* keep on one line if possible, but can wrap if needed on tiny screens */
+      word-wrap: break-word;
     }
     .total-row {
       font-size: 1.4rem;
@@ -450,6 +457,9 @@
       cursor: pointer;
       text-align: center;
       transition: background-color 0.3s ease;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
     .action-btn:hover, .back-btn:hover {
       background-color: rgba(205, 164, 94, 0.8);
@@ -468,11 +478,12 @@
         // lineCost = price * quantity
         let lineCost = order.price * order.quantity;
         total += lineCost;
+        // Show minus sign on the left, then name, quantity, cost on one line
         orderWindow.document.write(`
           <div class="order-row" id="row${index}">
             <button class="remove-btn" onclick="removeOrder('row${index}')">–</button>
             <div class="order-details">
-              ${order.name} | ${order.quantity} | ${lineCost}
+              ${order.name} | QTY: ${order.quantity} | $${lineCost}
             </div>
           </div>
         `);
@@ -482,16 +493,15 @@
   </div>
   <div class="total-row">Total: <span id="grandTotal">${total}</span></div>
   <button class="action-btn" onclick="alert('Order submitted!')">Submit Order</button>
-  <br />
   <button class="back-btn" onclick="window.close()">Back</button>
   <script>
     function removeOrder(rowId) {
       var row = document.getElementById(rowId);
       if (!row) return;
       // parse the final cost from the text
-      // pattern: "NAME | QTY | lineCost"
+      // pattern: "... | $lineCost"
       var details = row.querySelector(".order-details").textContent;
-      var match = details.match(/(\\d+)$/); 
+      var match = details.match(/\\$(\\d+)$/);
       var lineCost = match ? parseInt(match[1]) : 0;
       // remove the row
       row.parentElement.removeChild(row);
@@ -505,11 +515,12 @@
   <\/script>
 </body>
 </html>`);
-
+      
       orderWindow.document.close();
     }
   </script>
 </body>
 </html>
+
 
 
