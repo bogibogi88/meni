@@ -12,12 +12,14 @@
       --text-color: #e0e0e0;         
       --border-color: #444;          
     }
+    
     /* Reset */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+    
     /* Body styling */
     body {
       background-color: var(--bg-color);
@@ -25,7 +27,10 @@
       color: var(--text-color);
       padding: 20px;
       min-height: 100vh;
+      /* No wrapping site-wide (be cautious on very narrow screens) */
+      white-space: nowrap; 
     }
+    
     /* Main container */
     .menu-section {
       max-width: 800px;
@@ -35,7 +40,8 @@
       overflow: hidden;
       box-shadow: 0 8px 20px rgba(0,0,0,0.7);
     }
-    /* Header with a big picture */
+    
+    /* Header with big picture */
     .menu-header {
       position: relative;
       width: 100%;
@@ -60,10 +66,12 @@
       text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
       margin: 0;
     }
+    
     /* Menu items container */
     .menu-items {
       padding: 20px;
     }
+    
     /* Each menu item */
     .menu-item {
       display: flex;
@@ -78,7 +86,8 @@
       font-weight: 900;
       text-transform: uppercase;
       user-select: none;
-      word-wrap: break-word;
+      /* No wrapping for each row */
+      white-space: nowrap;
     }
     .menu-item:last-child {
       border-bottom: none;
@@ -97,6 +106,7 @@
       filter: none;
       opacity: 1;
     }
+    
     /* Price display on main page */
     .item-price {
       font-size: 1.4rem;
@@ -104,6 +114,7 @@
       text-transform: uppercase;
       margin-left: 10px;
     }
+    
     /* Quantity controls for active item */
     .quantity-controls {
       display: flex;
@@ -135,6 +146,7 @@
       min-width: 20px;
       text-align: center;
     }
+    
     /* Action buttons at the bottom */
     .action-buttons {
       display: flex;
@@ -159,7 +171,10 @@
     .action-btn:hover {
       background-color: rgba(205, 164, 94, 0.8);
     }
-    /* Responsive adjustments for mobile */
+    
+    /* Responsive note:
+       Because we've forced white-space: nowrap, on extremely narrow screens
+       the user may need to scroll horizontally. */
     @media (max-width: 600px) {
       .menu-header {
         height: 180px;
@@ -170,19 +185,7 @@
         left: 10px;
       }
       .menu-item {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 8px 10px;
         font-size: 1.2rem;
-        word-wrap: break-word;
-      }
-      .quantity-controls {
-        position: static;
-        margin-top: 8px;
-        transform: none;
-        width: 100%;
-        justify-content: flex-start;
-        flex-wrap: wrap;
       }
       .qty-btn, .qty-display, .action-btn {
         font-size: 1.2rem;
@@ -197,10 +200,10 @@
   <div class="menu-section">
     <div class="menu-header">
       <img src="alc.jpg" alt="Alkoholna pića" />
-      <h2>Alkoholna pića</h2>
+      <h2>Alkoholna Pića</h2>
     </div>
     <div class="menu-items">
-      <!-- Each menu-item includes data-quantity and data-price; shows name and price -->
+      <!-- Each menu-item includes data-quantity=0 by default, data-price, etc. -->
       <div class="menu-item" data-quantity="0" data-price="245" onclick="selectItem(this)">
         <span class="item-name">Gorki list 0.05</span>
         <span class="item-price">245</span>
@@ -270,10 +273,10 @@
       <button class="action-btn" onclick="viewOrder()">View Order</button>
     </div>
   </div>
-
+  
   <script>
     let activeItem = null;
-    
+
     function selectItem(item) {
       if (activeItem && activeItem !== item) {
         finalizeItem(activeItem);
@@ -292,7 +295,7 @@
     function addControls(item) {
       const controlsDiv = document.createElement('div');
       controlsDiv.className = 'quantity-controls';
-      
+
       const minusBtn = document.createElement('button');
       minusBtn.textContent = '➖';
       minusBtn.className = 'qty-btn';
@@ -300,11 +303,11 @@
         e.stopPropagation();
         updateQuantity(item, -1);
       };
-      
+
       const qtyDisplay = document.createElement('span');
       qtyDisplay.className = 'qty-display';
       qtyDisplay.textContent = item.dataset.quantity;
-      
+
       const plusBtn = document.createElement('button');
       plusBtn.textContent = '➕';
       plusBtn.className = 'qty-btn';
@@ -312,7 +315,7 @@
         e.stopPropagation();
         updateQuantity(item, 1);
       };
-      
+
       const doneBtn = document.createElement('button');
       doneBtn.textContent = 'DONE';
       doneBtn.className = 'qty-btn';
@@ -320,7 +323,7 @@
         e.stopPropagation();
         finalizeItem(item);
       };
-      
+
       controlsDiv.appendChild(minusBtn);
       controlsDiv.appendChild(qtyDisplay);
       controlsDiv.appendChild(plusBtn);
@@ -370,6 +373,7 @@
         alert("Please select at least one item.");
         return;
       }
+
       let orderWindow = window.open("", "_blank");
       orderWindow.document.write(`<!DOCTYPE html>
 <html lang="en">
@@ -384,12 +388,16 @@
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       padding: 20px;
       text-align: center;
+      /* Also no wrapping on second page to keep everything on one line */
+      white-space: nowrap;
     }
     h2 {
-      font-size: 2.4rem;
+      font-size: 2.8rem;
       font-weight: 900;
       text-transform: uppercase;
       margin-bottom: 20px;
+      color: #cda45e; /* Better styling for the header */
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
     }
     .order-container {
       width: 90%;
@@ -407,6 +415,7 @@
       font-weight: 900;
       font-size: 1.4rem;
       margin-bottom: 5px;
+      white-space: nowrap; /* No wrapping for each order row */
     }
     .remove-btn {
       background-color: transparent;
@@ -453,10 +462,10 @@
 <body>
   <h2>Order Summary</h2>
   <div class="order-container" id="order-container">`);
-      
+
       let total = 0;
       orders.forEach((order, index) => {
-        // Now lineCost is price multiplied by quantity
+        // lineCost = price * quantity
         let lineCost = order.price * order.quantity;
         total += lineCost;
         orderWindow.document.write(`
@@ -468,7 +477,7 @@
           </div>
         `);
       });
-      
+
       orderWindow.document.write(`
   </div>
   <div class="total-row">Total: <span id="grandTotal">${total}</span></div>
@@ -479,11 +488,14 @@
     function removeOrder(rowId) {
       var row = document.getElementById(rowId);
       if (!row) return;
-      // Extract the line cost (assumed to be the last number in the text)
+      // parse the final cost from the text
+      // pattern: "NAME | QTY | lineCost"
       var details = row.querySelector(".order-details").textContent;
-      var match = details.match(/(\\d+)$/);
+      var match = details.match(/(\\d+)$/); 
       var lineCost = match ? parseInt(match[1]) : 0;
+      // remove the row
       row.parentElement.removeChild(row);
+      // subtract from total
       var grandTotalElem = document.getElementById("grandTotal");
       var currentTotal = parseInt(grandTotalElem.textContent) || 0;
       var newTotal = currentTotal - lineCost;
@@ -493,10 +505,11 @@
   <\/script>
 </body>
 </html>`);
-      
+
       orderWindow.document.close();
     }
   </script>
 </body>
 </html>
+
 
