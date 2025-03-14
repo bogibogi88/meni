@@ -6,11 +6,11 @@
   <title>Alkoholna Pića Menu</title>
   <style>
     :root {
-      --bg-color: #121212;           /* Deep dark background */
-      --container-bg: #1f1f1f;         /* Slightly lighter container background */
-      --accent-color: #cda45e;         /* Warm, sophisticated gold accent */
-      --text-color: #e0e0e0;           /* Light grey text */
-      --border-color: #444;            /* Subtle border */
+      --bg-color: #121212;           
+      --container-bg: #1f1f1f;       
+      --accent-color: #cda45e;       
+      --text-color: #e0e0e0;         
+      --border-color: #444;          
     }
     
     /* Reset */
@@ -70,7 +70,7 @@
       padding: 20px;
     }
     
-    /* Each menu item styled as a row (table-like) */
+    /* Each menu item */
     .menu-item {
       display: flex;
       align-items: center;
@@ -84,6 +84,7 @@
       font-weight: 900;
       text-transform: uppercase;
       user-select: none;
+      word-wrap: break-word; /* Allow long names to break */
     }
     .menu-item:last-child {
       border-bottom: none;
@@ -105,7 +106,7 @@
       opacity: 1;
     }
     
-    /* Container for plus/minus/done controls */
+    /* Quantity controls */
     .quantity-controls {
       display: flex;
       align-items: center;
@@ -114,6 +115,7 @@
       right: 10px;
       top: 50%;
       transform: translateY(-50%);
+      flex-wrap: nowrap; /* default for large screens */
     }
     .qty-btn {
       background-color: var(--accent-color);
@@ -172,17 +174,19 @@
         left: 10px;
       }
       .menu-item {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: column;   /* Stack vertically */
+        align-items: flex-start;  /* Align text and controls to the left */
         padding: 8px 10px;
         font-size: 1.2rem;
+        word-wrap: break-word;
       }
       .quantity-controls {
-        position: static;
-        margin-top: 10px;
+        position: static;        /* No absolute positioning on mobile */
+        margin-top: 8px;         /* Add spacing above controls */
         transform: none;
         width: 100%;
         justify-content: flex-start;
+        flex-wrap: wrap;         /* Allow controls to wrap if needed */
       }
       .qty-btn, .qty-display, .action-btn {
         font-size: 1.2rem;
@@ -200,7 +204,7 @@
       <h2>Alkoholna pića</h2>
     </div>
     <div class="menu-items">
-      <!-- Each menu-item now uses a data-quantity attribute -->
+      <!-- Each menu-item uses a data-quantity attribute -->
       <div class="menu-item" data-quantity="0" onclick="selectItem(this)">
         <span class="item-name">Gorki list 0.05</span>
       </div>
@@ -250,28 +254,22 @@
         <span class="item-name">Rakija</span>
       </div>
     </div>
-    <!-- Action buttons: View Order -->
     <div class="action-buttons">
       <button class="action-btn" onclick="viewOrder()">View Order</button>
     </div>
   </div>
 
   <script>
-    // Track the currently active item.
     let activeItem = null;
 
     function selectItem(item) {
-      // If another item is active, finalize it first.
       if (activeItem && activeItem !== item) {
         finalizeItem(activeItem);
       }
-      
-      // Set this item as active.
       activeItem = item;
       item.classList.add('active');
       
-      // Blur all other items.
-      document.querySelectorAll('.menu-item').forEach(function(el) {
+      document.querySelectorAll('.menu-item').forEach(el => {
         if (el !== item) {
           el.classList.add('blur');
         } else {
@@ -279,13 +277,11 @@
         }
       });
       
-      // If controls are not present, add plus, minus, and done buttons.
       if (!item.querySelector('.quantity-controls')) {
         addControls(item);
       }
     }
 
-    // Add plus, minus, and done buttons to the active item.
     function addControls(item) {
       const controlsDiv = document.createElement('div');
       controlsDiv.className = 'quantity-controls';
@@ -293,7 +289,7 @@
       const minusBtn = document.createElement('button');
       minusBtn.textContent = '➖';
       minusBtn.className = 'qty-btn';
-      minusBtn.onclick = function(e) {
+      minusBtn.onclick = e => {
         e.stopPropagation();
         updateQuantity(item, -1);
       };
@@ -305,7 +301,7 @@
       const plusBtn = document.createElement('button');
       plusBtn.textContent = '➕';
       plusBtn.className = 'qty-btn';
-      plusBtn.onclick = function(e) {
+      plusBtn.onclick = e => {
         e.stopPropagation();
         updateQuantity(item, 1);
       };
@@ -313,7 +309,7 @@
       const doneBtn = document.createElement('button');
       doneBtn.textContent = 'DONE';
       doneBtn.className = 'qty-btn';
-      doneBtn.onclick = function(e) {
+      doneBtn.onclick = e => {
         e.stopPropagation();
         finalizeItem(item);
       };
@@ -325,40 +321,29 @@
       item.appendChild(controlsDiv);
     }
 
-    // Remove the plus/minus/done controls and reset active state.
     function finalizeItem(item) {
       item.classList.remove('active');
       removeControls(item);
       activeItem = null;
-      // Remove blur from all items.
-      document.querySelectorAll('.menu-item').forEach(function(el) {
-        el.classList.remove('blur');
-      });
+      document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('blur'));
     }
 
-    // Remove controls from the given item.
     function removeControls(item) {
       const controls = item.querySelector('.quantity-controls');
-      if (controls) {
-        controls.remove();
-      }
+      if (controls) controls.remove();
     }
 
-    // Update the stored quantity and update the display.
     function updateQuantity(item, delta) {
       let qty = parseInt(item.dataset.quantity);
       qty = Math.max(0, qty + delta);
       item.dataset.quantity = qty;
       const display = item.querySelector('.qty-display');
-      if (display) {
-        display.textContent = qty;
-      }
+      if (display) display.textContent = qty;
     }
 
-    // Function to view the order summary in a new window.
     function viewOrder() {
       let orders = [];
-      document.querySelectorAll('.menu-item').forEach(function(item) {
+      document.querySelectorAll('.menu-item').forEach(item => {
         let qty = parseInt(item.dataset.quantity);
         if (qty > 0) {
           orders.push({
@@ -372,7 +357,6 @@
         return;
       }
       
-      // Open a new window for the order summary.
       let orderWindow = window.open("", "Order Summary", "width=600,height=800,left=200,top=100");
       orderWindow.document.write(`<!DOCTYPE html>
 <html lang="en">
@@ -426,7 +410,7 @@
   <h2>Order Summary</h2>
   <div id="order-list">`);
       
-      orders.forEach(function(order) {
+      orders.forEach(order => {
         orderWindow.document.write(`<div class="order-item">${order.name} - Quantity: ${order.quantity}</div>`);
       });
       
