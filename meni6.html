@@ -95,7 +95,7 @@
       filter: none;
       opacity: 1;
     }
-    /* Top row: group item name & volume (if any) on left and price on right */
+    /* Top row: group item name & volume on left, price on right */
     .top-row {
       display: flex;
       align-items: center;
@@ -115,7 +115,7 @@
     .item-volume {
       font-size: 1.4rem;
       font-weight: 900;
-      color: #aaa; /* optional styling */
+      color: #aaa;
     }
     .item-price {
       font-size: 1.4rem;
@@ -204,7 +204,7 @@
       margin-top: 20px;
     }
     .table-page h2 {
-      font-size: 3rem; /* Bigger title for table selection */
+      font-size: 3rem; /* Big title for table selection */
       margin-bottom: 20px;
       font-weight: 900;
       letter-spacing: 2px;
@@ -413,15 +413,8 @@
         let price = parseInt(item.dataset.price) || 0;
         if (qty > 0) {
           let nameElem = item.querySelector('.item-name');
-          let volumeElem = item.querySelector('.item-volume');
           let nameText = nameElem ? nameElem.textContent : 'Unknown';
-          // Remove volume from order summary display:
-          // let volumeText = volumeElem ? volumeElem.textContent : '';
-          orders.push({ 
-            name: nameText, 
-            quantity: qty, 
-            price: price 
-          });
+          orders.push({ name: nameText, quantity: qty, price: price });
         }
       });
       return orders;
@@ -434,6 +427,7 @@
         return;
       }
       let orderWindow = window.open("", "_blank");
+      // Write order summary page
       orderWindow.document.write(`<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -508,7 +502,7 @@
     .action-btn:hover {
       background-color: rgba(205, 164, 94, 0.8);
     }
-    /* Back button on order summary page to return to main menu */
+    /* Back button on order summary page (closes window) */
     .order-back-btn {
       display: block;
       margin: 20px auto;
@@ -720,8 +714,32 @@
         alert("Please choose a table from the list.");
         return;
       }
-      // When Submit Table is clicked, show the confirmation overlay
-      document.getElementById("confirmationOverlay").style.display = "flex";
+      // Gather orders data from the order summary
+      let orders = gatherOrders();
+      let data = {
+        table: tableSelect,
+        orders: orders
+      };
+      // Send data via fetch to submit_order.php
+      fetch('submit_order.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(result => {
+        if(result.success) {
+          document.getElementById("confirmationOverlay").style.display = "flex";
+        } else {
+          alert("Order submission failed: " + result.error);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert("There was an error submitting your order.");
+      });
     }
     
     function closeOrderWindow() {
