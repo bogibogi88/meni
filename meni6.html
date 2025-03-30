@@ -100,7 +100,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px; /* Moderate gap to avoid overflow */
+      gap: 20px;
     }
     /* Container for item name and volume */
     .name-volume {
@@ -427,7 +427,6 @@
         return;
       }
       let orderWindow = window.open("", "_blank");
-      // Write order summary page
       orderWindow.document.write(`<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -754,6 +753,7 @@
   </script>
 </body>
 </html>
+
 
 
 
