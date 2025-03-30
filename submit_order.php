@@ -14,9 +14,9 @@ $orders = $data['orders'];
 
 // Database connection credentials
 $servername = "localhost";
-$username = "pinkfloyd";
+$username = "root";
 $password = "";
-$dbname = "floyd";
+$dbname = "pinkfloyd";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -29,7 +29,7 @@ if ($conn->connect_error) {
 
 // Example: Insert each ordered item into a table called "orders"
 // The "orders" table might have columns: id (auto-increment), table_number, item_name, quantity, price, order_date (timestamp)
-$stmt = $conn->prepare("INSERT INTO floyd (table, order, quantity) VALUES (?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO floyd (order,table, quantity) VALUES (?, ?, ?)");
 if (!$stmt) {
     echo json_encode(["success" => false, "error" => "Prepare failed: " . $conn->error]);
     exit;
