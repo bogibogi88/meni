@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Alkoholna Pića Menu</title>
   <style>
     :root {
-      --bg-color: #121212;
-      --container-bg: #1f1f1f;
-      --accent-color: #cda45e;
-      --text-color: #e0e0e0;
-      --border-color: #444;
+      --bg-color: #121212;           /* Deep dark background */
+      --container-bg: #1f1f1f;         /* Slightly lighter container background */
+      --accent-color: #cda45e;         /* Warm, sophisticated gold accent */
+      --text-color: #e0e0e0;           /* Light grey text */
+      --border-color: #444;            /* Subtle border */
     }
+    
     /* Reset */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+    
     /* Body styling */
     body {
       background-color: var(--bg-color);
@@ -26,6 +28,7 @@
       padding: 20px;
       min-height: 100vh;
     }
+    
     /* Main container */
     .menu-section {
       max-width: 800px;
@@ -35,6 +38,7 @@
       overflow: hidden;
       box-shadow: 0 8px 20px rgba(0,0,0,0.7);
     }
+    
     /* Header with a big picture */
     .menu-header {
       position: relative;
@@ -60,23 +64,20 @@
       text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
       margin: 0;
     }
+    
     /* Menu items container */
     .menu-items {
       padding: 20px;
     }
-    /* Each menu item */
+    
+    /* Each menu item styled as a row (table-like) */
     .menu-item {
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
       padding: 10px 12px;
       border-bottom: 1px solid var(--border-color);
       transition: background 0.3s ease;
-      cursor: pointer;
-      font-size: 1.4rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      user-select: none;
-      word-wrap: break-word;
     }
     .menu-item:last-child {
       border-bottom: none;
@@ -84,95 +85,24 @@
     .menu-item:hover {
       background-color: rgba(205, 164, 94, 0.15);
     }
-    .menu-item:focus {
-      outline: none !important;
-    }
-    .menu-item.blur {
-      filter: blur(2px);
-      opacity: 0.6;
-    }
-    .menu-item.active {
-      filter: none;
-      opacity: 1;
-    }
-    /* Top row: group item name & volume on left, price on right */
-    .top-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-    /* Container for item name and volume */
-    .name-volume {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
+    
     .item-name {
-      font-size: 1.4rem;
+      font-size: 1.4rem;      /* Reduced font size */
       font-weight: 900;
+      text-transform: uppercase;
     }
-    .item-volume {
-      font-size: 1.4rem;
+    .item-quantity {
+      font-size: 1.4rem;      /* Reduced font size for quantity, if needed */
       font-weight: 900;
-      color: #aaa;
+      text-transform: uppercase;
+      margin: 0 10px;
     }
     .item-price {
-      font-size: 1.4rem;
+      font-size: 1.4rem;      /* Reduced font size */
       font-weight: 900;
       text-transform: uppercase;
     }
-    /* Quantity controls */
-    .quantity-controls {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 5px;
-    }
-    .qty-btn {
-      background-color: var(--accent-color);
-      border: none;
-      padding: 5px 10px;
-      color: var(--text-color);
-      font-size: 1.4rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      cursor: pointer;
-      border-radius: 4px;
-      transition: background-color 0.3s ease;
-    }
-    .qty-btn:hover {
-      background-color: rgba(205, 164, 94, 0.8);
-    }
-    .qty-display {
-      font-size: 1.4rem;
-      min-width: 20px;
-      text-align: center;
-    }
-    /* Action buttons */
-    .action-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin: 20px auto;
-    }
-    .action-btn {
-      width: 200px;
-      padding: 10px;
-      background-color: var(--accent-color);
-      border: none;
-      border-radius: 5px;
-      color: var(--text-color);
-      font-size: 1.4rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      cursor: pointer;
-      text-align: center;
-      transition: background-color 0.3s ease;
-    }
-    .action-btn:hover {
-      background-color: rgba(205, 164, 94, 0.8);
-    }
+    
     /* Responsive adjustments */
     @media (max-width: 600px) {
       .menu-header {
@@ -184,573 +114,96 @@
         left: 10px;
       }
       .menu-item {
+        padding: 8px 10px;
+      }
+      .item-name, .item-quantity, .item-price {
         font-size: 1.2rem;
       }
-      .item-name, .item-volume, .item-price {
-        font-size: 1.2rem;
-      }
-      .action-btn {
-        width: 150px;
-        font-size: 1.2rem;
-      }
-      .top-row {
-        gap: 10px;
-      }
-    }
-    /* Styles for table selection page (in order window) */
-    .table-page {
-      display: none;
-      text-align: center;
-      margin-top: 20px;
-    }
-    .table-page h2 {
-      font-size: 3rem; /* Big title for table selection */
-      margin-bottom: 20px;
-      font-weight: 900;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--accent-color);
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-    }
-    .table-page select {
-      font-size: 2rem;
-      padding: 10px;
-      border: 1px solid var(--accent-color);
-      border-radius: 5px;
-      background-color: var(--container-bg);
-      color: var(--text-color);
-      margin-bottom: 10px;
-    }
-    .table-page .action-btn {
-      margin-top: 10px;
-    }
-    .table-page .back-btn {
-      display: block;
-      margin: 10px auto 0 auto;
-      width: 200px;
-      padding: 10px;
-      background-color: var(--accent-color);
-      border: none;
-      border-radius: 5px;
-      color: var(--text-color);
-      font-size: 1.4rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      cursor: pointer;
-      text-align: center;
-      transition: background-color 0.3s ease;
-    }
-    .table-page .back-btn:hover {
-      background-color: rgba(205, 164, 94, 0.8);
-    }
-    /* Styles for confirmation modal overlay */
-    .confirmation-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0,0,0,0.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-    .confirmation-modal {
-      background-color: var(--container-bg);
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.7);
-      text-align: center;
-      font-size: 2rem;
-      font-weight: 900;
-      color: #ffffff; /* White text */
-    }
-    .confirmation-modal span {
-      font-size: 2.5rem;
-      margin-right: 10px;
-      color: green; /* Check mark in green */
-    }
-    .confirmation-modal button {
-      margin-top: 20px;
-      width: 200px;
-      padding: 10px;
-      background-color: var(--accent-color);
-      border: none;
-      border-radius: 5px;
-      color: var(--text-color);
-      font-size: 1.4rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .confirmation-modal button:hover {
-      background-color: rgba(205, 164, 94, 0.8);
     }
   </style>
 </head>
 <body>
   <div class="menu-section">
     <div class="menu-header">
-      <img src="alc.jpg" alt="Alkoholna pića" />
-      <h2>Alkoholna Pića</h2>
+      <img src="coffe.jpg" alt="kafe">
+      <h2>Kafe</h2>
     </div>
     <div class="menu-items">
-      <!-- Example item 1 -->
-      <div class="menu-item" data-quantity="0" data-price="245" onclick="selectItem(this)">
-        <div class="top-row">
-          <div class="name-volume">
-            <span class="item-name">Gorki list</span>
-            <span class="item-volume">0.05</span>
-          </div>
-          <span class="item-price">245</span>
-        </div>
+      <div class="menu-item">
+        <span class="item-name">Espresso</span>
+        <span class="item-price">210</span>
       </div>
-      <!-- Example item 2 -->
-      <div class="menu-item" data-quantity="0" data-price="345" onclick="selectItem(this)">
-        <div class="top-row">
-          <div class="name-volume">
-            <span class="item-name">Jägermeister</span>
-            <span class="item-volume">0.03</span>
-          </div>
-          <span class="item-price">345</span>
-        </div>
+      <div class="menu-item">
+        <span class="item-name">Ice Espresso </span>
+        <span class="item-price">220</span>
       </div>
-      <!-- Example item 3 -->
-      <div class="menu-item" data-quantity="0" data-price="345" onclick="selectItem(this)">
-        <div class="top-row">
-          <div class="name-volume">
-            <span class="item-name">Amaro Montenegro</span>
-            <span class="item-volume">0.03</span>
-          </div>
-          <span class="item-price">345</span>
-        </div>
+      <div class="menu-item">
+        <span class="item-name">Americano</span>
+        <span class="item-price">210</span>
       </div>
-      <!-- Add more items as needed -->
-    </div>
-    <div class="action-buttons">
-      <button class="action-btn" onclick="viewOrder()">View Order</button>
-    </div>
-  </div>
+      <div class="menu-item">
+        <span class="item-name">Dupli Espresso</span>
+        <span class="item-price">315</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Macchiato</span>
+        <span class="item-price">210</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Espresso sa mlekom</span>
+        <span class="item-price">220</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Cappuccino</span>
+        <span class="item-price">230</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Cappuccino sa slagom</span>
+        <span class="item-price">240</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Latte Macchiato</span>
+        <span class="item-price">275</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Cafe Latte</span>
+        <span class="item-price">275</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Ice Latte</span>
+        <span class="item-price">275</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Latte sa ukusom</span>
+        <span class="item-price">325</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Ice Latte sa ukusom</span>
+        <span class="item-price">325</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Caffe Mocha</span>
+        <span class="item-price">345</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Nescafé</span>
+        <span class="item-price">265</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Nescafe sa slagom</span>
+        <span class="item-price">295</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Nescaffe sa ukusom</span>
+        <span class="item-price">325</span>
+      </div>
+<div class="menu-item">
+        <span class="item-name">Domaca kafa</span>
+        <span class="item-price">175</span>
+      </div>
 
-  <script>
-    let activeItem = null;
-    
-    function selectItem(item) {
-      if (activeItem && activeItem !== item) {
-        finalizeItem(activeItem);
-      }
-      activeItem = item;
-      item.classList.add('active');
-      document.querySelectorAll('.menu-item').forEach(el => {
-        if (el !== item) el.classList.add('blur');
-        else el.classList.remove('blur');
-      });
-      if (!item.querySelector('.quantity-controls')) {
-        addControls(item);
-      }
-    }
-    
-    function addControls(item) {
-      const controlsDiv = document.createElement('div');
-      controlsDiv.className = 'quantity-controls';
-      const minusBtn = document.createElement('button');
-      minusBtn.textContent = '➖';
-      minusBtn.className = 'qty-btn';
-      minusBtn.onclick = e => {
-        e.stopPropagation();
-        updateQuantity(item, -1);
-      };
-      const qtyDisplay = document.createElement('span');
-      qtyDisplay.className = 'qty-display';
-      qtyDisplay.textContent = item.dataset.quantity || '0';
-      const plusBtn = document.createElement('button');
-      plusBtn.textContent = '➕';
-      plusBtn.className = 'qty-btn';
-      plusBtn.onclick = e => {
-        e.stopPropagation();
-        updateQuantity(item, 1);
-      };
-      const doneBtn = document.createElement('button');
-      doneBtn.textContent = 'DONE';
-      doneBtn.className = 'qty-btn';
-      doneBtn.onclick = e => {
-        e.stopPropagation();
-        finalizeItem(item);
-      };
-      controlsDiv.appendChild(minusBtn);
-      controlsDiv.appendChild(qtyDisplay);
-      controlsDiv.appendChild(plusBtn);
-      controlsDiv.appendChild(doneBtn);
-      item.appendChild(controlsDiv);
-    }
-    
-    function finalizeItem(item) {
-      item.classList.remove('active');
-      removeControls(item);
-      activeItem = null;
-      document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('blur'));
-    }
-    
-    function removeControls(item) {
-      const controls = item.querySelector('.quantity-controls');
-      if (controls) controls.remove();
-    }
-    
-    function updateQuantity(item, delta) {
-      let qty = parseInt(item.dataset.quantity) || 0;
-      qty = Math.max(0, qty + delta);
-      item.dataset.quantity = qty;
-      const display = item.querySelector('.qty-display');
-      if (display) display.textContent = qty;
-    }
-    
-    function gatherOrders() {
-      let orders = [];
-      document.querySelectorAll('.menu-item').forEach(item => {
-        let qty = parseInt(item.dataset.quantity) || 0;
-        let price = parseInt(item.dataset.price) || 0;
-        if (qty > 0) {
-          let nameElem = item.querySelector('.item-name');
-          let nameText = nameElem ? nameElem.textContent : 'Unknown';
-          orders.push({ name: nameText, quantity: qty, price: price });
-        }
-      });
-      return orders;
-    }
-    
-    function viewOrder() {
-      let orders = gatherOrders();
-      if (orders.length === 0) {
-        alert("Please select at least one item.");
-        return;
-      }
-      let orderWindow = window.open("", "_blank");
-      orderWindow.document.write(`<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Order Details</title>
-  <style>
-    :root {
-      --bg-color: #121212;
-      --container-bg: #1f1f1f;
-      --accent-color: #cda45e;
-      --text-color: #e0e0e0;
-    }
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      padding: 20px;
-      text-align: left;
-      word-wrap: break-word;
-    }
-    .order-container {
-      width: 90%;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-    .order-row {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-      border-bottom: 1px solid var(--accent-color);
-      padding-bottom: 5px;
-      font-size: 1.4rem;
-      font-weight: 900;
-      text-transform: uppercase;
-    }
-    .remove-btn {
-      background-color: transparent;
-      border: none;
-      color: var(--accent-color);
-      font-size: 1.4rem;
-      cursor: pointer;
-      font-weight: 900;
-      margin-right: 10px;
-    }
-    .order-details {
-      display: inline-block;
-    }
-    .total-row {
-      font-size: 1.4rem;
-      margin-top: 20px;
-      text-transform: uppercase;
-      font-weight: 900;
-      text-align: center;
-    }
-    .action-btn {
-      display: block;
-      margin: 20px auto 0 auto;
-      width: 200px;
-      padding: 10px;
-      background-color: var(--accent-color);
-      border: none;
-      border-radius: 5px;
-      color: var(--text-color);
-      font-size: 1.4rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      cursor: pointer;
-      text-align: center;
-      transition: background-color 0.3s ease;
-    }
-    .action-btn:hover {
-      background-color: rgba(205, 164, 94, 0.8);
-    }
-    /* Back button on order summary page (closes window) */
-    .order-back-btn {
-      display: block;
-      margin: 20px auto;
-      width: 200px;
-      padding: 10px;
-      background-color: var(--accent-color);
-      border: none;
-      border-radius: 5px;
-      color: var(--text-color);
-      font-size: 1.4rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      cursor: pointer;
-      text-align: center;
-      transition: background-color 0.3s ease;
-    }
-    .order-back-btn:hover {
-      background-color: rgba(205, 164, 94, 0.8);
-    }
-    /* Table selection page */
-    .table-page {
-      display: none;
-      text-align: center;
-      margin-top: 20px;
-    }
-    .table-page h2 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      font-weight: 900;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--accent-color);
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-    }
-    .table-page select {
-      font-size: 2rem;
-      padding: 10px;
-      border: 1px solid var(--accent-color);
-      border-radius: 5px;
-      background-color: var(--container-bg);
-      color: var(--text-color);
-      margin-bottom: 10px;
-    }
-    .table-page .action-btn {
-      margin-top: 10px;
-    }
-    .table-page .back-btn {
-      display: block;
-      margin: 10px auto 0 auto;
-      width: 200px;
-      padding: 10px;
-      background-color: var(--accent-color);
-      border: none;
-      border-radius: 5px;
-      color: var(--text-color);
-      font-size: 1.4rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      cursor: pointer;
-      text-align: center;
-      transition: background-color 0.3s ease;
-    }
-    .table-page .back-btn:hover {
-      background-color: rgba(205, 164, 94, 0.8);
-    }
-    /* Confirmation overlay */
-    .confirmation-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0,0,0,0.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-    .confirmation-modal {
-      background-color: var(--container-bg);
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.7);
-      text-align: center;
-      font-size: 2rem;
-      font-weight: 900;
-      color: #ffffff;
-    }
-    .confirmation-modal span {
-      font-size: 2.5rem;
-      margin-right: 10px;
-      color: green;
-    }
-    .confirmation-modal button {
-      margin-top: 20px;
-      width: 200px;
-      padding: 10px;
-      background-color: var(--accent-color);
-      border: none;
-      border-radius: 5px;
-      color: var(--text-color);
-      font-size: 1.4rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .confirmation-modal button:hover {
-      background-color: rgba(205, 164, 94, 0.8);
-    }
-  </style>
-</head>
-<body>
-  <div class="order-container" id="order-container">
-`);
-      
-      let total = 0;
-      orders.forEach((order, index) => {
-        let lineCost = order.price * order.quantity;
-        total += lineCost;
-        orderWindow.document.write(`
-          <div class="order-row" id="row${index}">
-            <button class="remove-btn" onclick="removeOrder('row${index}')">–</button>
-            <div class="order-details">
-              ${order.name} | ${order.quantity} | ${lineCost}
-            </div>
-          </div>
-        `);
-      });
-      
-      orderWindow.document.write(`
-  </div>
-  <div class="total-row">Total: <span id="grandTotal">${total}</span></div>
-  <button class="action-btn" id="submitOrderBtn" onclick="showTablePage()">Submit Order</button>
-  <button class="order-back-btn" onclick="window.close()">Back</button>
-  
-  <!-- Table selection page -->
-  <div class="table-page" id="table-page">
-    <h2>Select Table</h2>
-    <select id="tableSelect">
-      <option value="">Choose a table</option>
-      <option value="1">Table 1</option>
-      <option value="2">Table 2</option>
-      <option value="3">Table 3</option>
-      <option value="4">Table 4</option>
-      <option value="5">Table 5</option>
-      <option value="6">Table 6</option>
-      <option value="7">Table 7</option>
-      <option value="8">Table 8</option>
-      <option value="9">Table 9</option>
-      <option value="10">Table 10</option>
-      <option value="11">Table 11</option>
-      <option value="12">Table 12</option>
-      <option value="13">Table 13</option>
-      <option value="14">Table 14</option>
-      <option value="15">Table 15</option>
-    </select>
-    <br/><br/>
-    <button class="action-btn" onclick="submitTable()">Submit Table</button>
-    <br/><br/>
-    <button class="back-btn" onclick="backToSummary()">Back</button>
-  </div>
-  
-  <!-- Confirmation overlay -->
-  <div class="confirmation-overlay" id="confirmationOverlay">
-    <div class="confirmation-modal">
-      <span>&#10004;</span> Order Confirmed!
-      <br/><br/>
-      <button onclick="closeOrderWindow()">Close</button>
     </div>
   </div>
-  
-  <script>
-    function removeOrder(rowId) {
-      var row = document.getElementById(rowId);
-      if (!row) return;
-      var details = row.querySelector(".order-details").textContent;
-      var parts = details.split("|");
-      var lineCost = parseInt(parts[parts.length - 1]) || 0;
-      row.parentElement.removeChild(row);
-      var grandTotalElem = document.getElementById("grandTotal");
-      var currentTotal = parseInt(grandTotalElem.textContent) || 0;
-      var newTotal = currentTotal - lineCost;
-      if (newTotal < 0) newTotal = 0;
-      grandTotalElem.textContent = newTotal;
-    }
-    
-    function showTablePage() {
-      // Hide order summary elements and show table selection page
-      document.getElementById("order-container").style.display = "none";
-      document.querySelector(".total-row").style.display = "none";
-      document.getElementById("submitOrderBtn").style.display = "none";
-      document.querySelector(".order-back-btn").style.display = "none";
-      document.getElementById("table-page").style.display = "block";
-    }
-    
-    function backToSummary() {
-      // Hide table selection page and show order summary elements again
-      document.getElementById("table-page").style.display = "none";
-      document.getElementById("order-container").style.display = "block";
-      document.querySelector(".total-row").style.display = "block";
-      document.getElementById("submitOrderBtn").style.display = "block";
-      document.querySelector(".order-back-btn").style.display = "block";
-    }
-    
-    function submitTable() {
-      var tableSelect = document.getElementById("tableSelect").value;
-      if (!tableSelect) {
-        alert("Please choose a table from the list.");
-        return;
-      }
-      // Gather orders data from the order summary
-      let orders = gatherOrders();
-      let data = {
-        table: tableSelect,
-        orders: orders
-      };
-      // Send data via fetch to submit_order.php
-      fetch('submit_order.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-      .then(response => response.json())
-      .then(result => {
-        if(result.success) {
-          document.getElementById("confirmationOverlay").style.display = "flex";
-        } else {
-          alert("Order submission failed: " + result.error);
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert("There was an error submitting your order.");
-      });
-    }
-    
-    function closeOrderWindow() {
-      window.close();
-    }
-  <\/script>
-</body>
-</html>`);
-      
-      orderWindow.document.close();
-    }
-  </script>
 </body>
 </html>
 
